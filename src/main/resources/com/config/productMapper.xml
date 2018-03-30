@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+
+<mapper namespace="com.entity.Product">
+
+  <select id="findProductByProductId" parameterType="int"
+   resultType="com.entity.Product">
+   select product_id,product_name,product_image,product_price from product
+   where product_id=#{productid} 
+  
+  </select>
+  <select id="searchProductQuantity" parameterType="int"
+   resultType="Integer">
+   select quantity from product
+   where product_id=#{productid} 
+  
+  </select>
+  <update id="reduceProductStock" parameterType="java.util.Map">
+   update product set quantity=(quantity-#{quantity}) where product_id=#{productid}
+  </update>
+  
+  
+  <select id="findAllProduct" 
+   resultType="com.entity.Product">
+   select product_id,product_name,product_image,product_price from product
+  
+  </select>
+  <insert  id="insertProduct" parameterType="java.util.Map"   >
+   insert into product(product_id,product_name,product_image,product_price)
+   values(#{productid},#{productname},#{productimage},#{productprice})
+  </insert>
+  <delete  id="deleteProduct" parameterType="int" >
+  delete from product where product_id=#{productid}
+  </delete>
+</mapper>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+
+<mapper namespace="com.entity.Goods">
+
+  <insert id="insertEmp" parameterType="java.util.Map" >
+  insert into address(user_id,receiver_name,receiver_phone,receiver_mobile,receiver_province,receiver_city) values(#{userid},#{receivername},#{receiverphone},#{receivermobile},#{receiverprovince},#{receivercity})
+  </insert>
+  
+  <delete id="deleteEmpByEmpno"  parameterType="java.util.Map" > 
+  delete from address where user_id=#{userid} and receiver_city=#{receivercity}
+  </delete>
+  
+  <select id="findEmpByEmpno"   parameterType="java.util.Map"
+  resultType="com.entity.Address">
+  	  select user_id,receiver_name,receiver_phone,receiver_mobile,receiver_province,receiver_city from address where user_id=#{userid} and receiver_city=#{receivercity}
+  </select>
+  
+  <update id="updateEmp" parameterType="java.util.Map">
+  update address set  receiver_name=#{receivername},receiver_phone=#{receiverphone},receiver_mobile=#{receivermobile},receiver_province=#{receiverprovince},receiver_city=#{receivercity} where user_id=#{userid} and receiver_city=#{receivercity}
+  </update>
+  <select id="findTotalCount" resultType="int">
+  select count(user_id) from address where user_id=#{userid}
+  </select>
+  <select id="findGoodsByPage" parameterType="java.util.Map"
+  resultType="com.entity.Address">
+  select user_id,receiver_name  ,receiver_phone,receiver_mobile,receiver_province,receiver_city from address where user_id=#{userid} limit #{offset},#{pageSize}
+  </select>
+  
+  
+</mapper>

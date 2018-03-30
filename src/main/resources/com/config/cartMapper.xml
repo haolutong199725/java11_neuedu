@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+
+<mapper namespace="com.entity.Cart">
+
+ <update id="updateChecked" parameterType="java.util.Map">
+  update cart set checked=#{checked} where user_id=#{userid}
+  <if test="productid!=-1">
+  and product_id=#{productid}
+  </if>
+  </update>
+ <update id="updateQuantity" parameterType="java.util.Map">
+  update cart set quantity=#{quantity} where user_id=#{userid}
+  and product_id=#{productid}
+  </update>
+  
+  <delete id="deleteCart"  parameterType="java.util.Map">
+   delete from cart where user_id=#{userid} and product_id=#{productid}
+  </delete>
+  <select id="findCartListByUserid" parameterType="Integer"
+   resultType="com.entity.Cart">
+   select id,user_id userid,product_id productid,quantity,checked,create_time createtime,update_time updatetime from cart
+   where user_id=#{userid} and checked=1
+  
+  </select>
+  <delete id="deleteCartByUseridAndChecked" parameterType="Integer">
+  delete from cart where user_id=#{userid} and checked=1
+  </delete>
+</mapper>
